@@ -52,7 +52,7 @@ function ask_choice() {
 	BOTASK_ANSWER="$def_choice" #XXX: ACCESS TO USER'S CHOICE
 	for c in "$@"; do
 		if [[ "$c" == "${choices[$def_choice]}" ]]; then
-			prompt="${prompt}${bold}[${c:0:1}]${c:1}${normal} "
+			prompt="${prompt}${blue}${bold}[${c:0:1}]${c:1}${normal} "
 		else
 			prompt="${prompt}[${c:0:1}]${c:1} "
 		fi
@@ -321,7 +321,7 @@ function enablessh() {
 function duckdns() {
 	say_blue 'DuckDns it a free dynamic DNS see: https://www.duckdns.org/'
 	ask_choice "If you have a DuckDns do you whant I make a cron job ?" 0 no yes
-	if [[ $BOTASK_ANSWER == 0 ]]; then
+	if [[ $BOTASK_ANSWER == 1 ]]; then
 
 		while [ -z "$DUCKDNSDOMAIN" ] && say_grey "What is your DuckDnsUrl ( example.duckdns.org ) ?" && read -r DUCKDNSDOMAIN && [ -z "$DUCKDNSDOMAIN" ]; do
 			say_red "No-no, please, no blank !"
