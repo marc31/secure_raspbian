@@ -333,7 +333,11 @@ function duckdns() {
 
 		checkandinstallprog curl
 
-		(sudo crontab -l && echo "* * * * 1 curl -k -o /tmp/duckdns.log \"https://www.duckdns.org/update?domains=$DUCKDNSDOMAIN&token=$DUCKDNSTOKEN&ip=\" >/dev/null 2>&1") | sudo crontab -
+		if grep -Fq "* * * * 1 curl -k -o /tmp/duckdns.log \"https://www.duckdns.org/update?domains=$DUCKDNSDOMAIN&token=$DUCKDNSTOKEN&ip=\" >/dev/null 2>&1"; then
+			say_red "DuckDns cron job is already exists"
+		else
+			(sudo crontab -l && echo "* * * * 1 curl -k -o /tmp/duckdns.log \"https://www.duckdns.org/update?domains=$DUCKDNSDOMAIN&token=$DUCKDNSTOKEN&ip=\" >/dev/null 2>&1") | sudo crontab -
+		fi
 
 		say_grey 'You can see log in /tmp/duckdns.log'
 	fi
